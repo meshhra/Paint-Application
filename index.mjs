@@ -277,6 +277,7 @@ function saveImage() {
     "temp",
     "saving-canvas"
   );
+  saveCanvas.canvas.style.scale = dertermineScale(docDimentions.width, docDimentions.height);
   saveCanvas.ctx.fillStyle = "white";
   saveCanvas.ctx.fillRect(0, 0, docDimentions.width, docDimentions.height);
   saveCanvas.ctx.drawImage(activeCanvas.canvas, 0, 0);
