@@ -88,6 +88,9 @@ let isMouseDown = false;
 
 let tempLayer = null;
 
+const saveBtn = document.getElementById("save-file-btn");
+saveBtn.addEventListener("click", saveImage);
+
 window.addEventListener(NEW_DOC_CREATED, (e) => {
   resetAppState();
   docDimentions = {
@@ -259,6 +262,42 @@ function dertermineScale(width, height) {
   } else {
     return 0.75 * (720 / Number.parseInt(docHeightInput.value));
   }
+}
+
+function saveImage() {
+
+  if (activeCanvas == null) {
+    console.error("cannot save when no document is present");
+    return;
+  }
+
+  let saveCanvas = new DrawingCanvas(
+    wrapper,
+    docDimentions,
+    "temp",
+    "saving-canvas"
+  );
+  saveCanvas.ctx.fillStyle = "white";
+  saveCanvas.ctx.fillRect(0, 0, docDimentions.width, docDimentions.height);
+  saveCanvas.ctx.drawImage(activeCanvas.canvas, 0, 0);
+  let canvasImage = saveCanvas.canvas.toDataURL("image");
+
+  // this can be used to download any image from webpage to local disk
+  let xhr = new XMLHttpRequest();
+  xhr.responseType = "blob";
+  xhr.onload = function () {
+    let a = document.createElement("a");
+    a.href = window.URL.createObjectURL(xhr.response);
+    a.download = "image_name.png";
+    a.style.display = "none";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    saveCanvas.remove();
+    saveCanvas = null;
+  };
+  xhr.open("GET", canvasImage); // This is to download the canvas Image
+  xhr.send();
 }
 
 function resetAppState() {

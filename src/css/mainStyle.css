@@ -114,6 +114,7 @@ main {
   position: absolute;
   background-color: var(--text-50);
   scale: 1;
+  cursor: crosshair;
 }
 .temp {
   position: absolute;
