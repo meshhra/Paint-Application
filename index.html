@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
+    <title>Paint Application</title>
+    <script
+      src="https://kit.fontawesome.com/450f15df1b.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div id="new-file-modal" class="modal">
+      <div class="modal-background"></div>
+      <form id="new-file-form">
+        <div id="new-form-input-wrapper">
+          <div class="single-inp">
+            <label for="doc-width-input"> width: </label>
+            <input
+              type="number"
+              pattern="[0-9]*"
+              inputmode="numeric"
+              id="doc-width-input"
+              min="512"
+              value="1280"
+            />
+          </div>
+          <div class="single-inp">
+            <label for="doc-height-input"> height: </label>
+            <input
+              type="number"
+              pattern="[0-9]*"
+              inputmode="numeric"
+              id="doc-height-input"
+              min="512"
+              value="720"
+            />
+          </div>
+        </div>
+        <div class="new-from-btn-container">
+          <button type="button" class="btn" id="new-file-create-btn">
+            Create
+          </button>
+          <button
+            type="button"
+            class="btn secondary-btn"
+            id="new-file-cancel-btn"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+    <header>
+      <div class="menubar">
+        <div class="menu">
+          <!-- File Menu -->
+          <article class="menu-item submenu-parent" id="file-menu-item">
+            <button class="btn menu-btn">File</button>
+            <div class="submenu">
+              <!-- New File Btn -->
+              <div class="submenu-item">
+                <button id="new-file-btn" type="button" class="btn submenu-btn">
+                  New File <span class="shortcut"></span>
+                </button>
+              </div>
+              <!-- Save File Btn -->
+              <div class="submenu-item">
+                <button
+                  id="save-file-btn"
+                  type="button"
+                  class="btn submenu-btn"
+                >
+                  Save Image <span class="shortcut"></span>
+                </button>
+              </div>
+            </div>
+          </article>
+          <!-- Edit Menu TODO -->
+          <article class="menu-item submenu-parent" id="edit-menu-item">
+            <button class="btn menu-btn">Edit</button>
+            <div class="submenu">
+              <!-- New File Btn -->
+              <div class="submenu-item">
+                <button
+                  id="some1-file-btn"
+                  type="button"
+                  class="btn submenu-btn"
+                >
+                  Preferences <span class="shortcut"></span>
+                </button>
+              </div>
+              <!-- Save File Btn -->
+              <div class="submenu-item">
+                <button
+                  id="some2-file-btn"
+                  type="button"
+                  class="btn submenu-btn"
+                >
+                  Save <span class="shortcut"></span>
+                </button>
+              </div>
+            </div>
+          </article>
+          <!-- help menu -->
+          <article class="menu-item submenu-parent" id="help-menu-item">
+            <button class="btn menu-btn">Help</button>
+            <div class="submenu">
+              <!-- New File Btn -->
+              <div class="submenu-item">
+                <button id="about-btn" type="button" class="btn submenu-btn">
+                  About <span class="shortcut"></span>
+                </button>
+              </div>
+
+          </article>
+        </div>
+        <div class="brush-settings-wrapper">
+          <label for="brush-color-input">color: </label>
+          <input type="color" name="brush color" id="brush-color-input" />
+          <label for="brush-size-input">size: </label>
+          <input
+            value="5"
+            type="number"
+            inputmode="numeric"
+            id="brush-size-input"
+          />
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <aside class="toolbar">
+        <div class="tools">
+          <button type="button" id="brush-tool-btn" class="tool btn">
+            <i class="fa-solid fa-paintbrush"></i>
+          </button>
+          <button type="button" id="line-tool-btn" class="tool btn">
+            <i class="fa-solid fa-slash"></i>
+          </button>
+          <button type="button" id="rect-tool-btn" class="tool btn">
+            <i class="fa-regular fa-square"></i>
+          </button>
+          <button type="button" id="circle-tool-btn" class="tool btn">
+            <i class="fa-regular fa-circle"></i>
+          </button>
+        </div>
+      </aside>
+      <div id="canvas-wrapper">
+        <p>Go to <code>File > New File</code> to get stated</p>
+      </div>
+      <aside class="layersbar">
+        <p>Layers: </p>
+        <div id="layers-wrapper">
+          <article class="layer active-layer" id="0">
+            <p class="layer-name ">Layer 1</p>
+          </article>
+        </div>
+        <div id="layer-options">
+          <button id="new-layer-btn" class="btn layer-option-btn">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+          <button id="delete-active-layer-btn" class="btn layer-option-btn">
+            <i class="fa-solid fa-minus"></i>
+          </button>
+        </div>
+      </aside>
+    </main>
+    <script type="module" src="index.mjs"></script>
+  </body>
+</html>

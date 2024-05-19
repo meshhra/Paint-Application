@@ -1,0 +1,9 @@
+@import url("./src/css/menubarStyle.css");
+/* basic setup */
+@import url("./src/css/init.css");
+/* modal */
+@import url("./src/css/newFileSetting.css");
+/* menubar */
+@import url("./src/css/menubarStyle.css");
+/* main element */
+@import url("./src/css/mainStyle.css");
