@@ -91,16 +91,6 @@
                   Preferences <span class="shortcut"></span>
                 </button>
               </div>
-              <!-- Save File Btn -->
-              <div class="submenu-item">
-                <button
-                  id="some2-file-btn"
-                  type="button"
-                  class="btn submenu-btn"
-                >
-                  Save <span class="shortcut"></span>
-                </button>
-              </div>
             </div>
           </article>
           <!-- help menu -->
@@ -121,10 +111,12 @@
           <input type="color" name="brush color" id="brush-color-input" />
           <label for="brush-size-input">size: </label>
           <input
-            value="5"
+            value="1"
             type="number"
             inputmode="numeric"
             id="brush-size-input"
+            min="1"
+            max="75"
           />
         </div>
       </div>
@@ -153,17 +145,7 @@
       <aside class="layersbar">
         <p>Layers: </p>
         <div id="layers-wrapper">
-          <article class="layer active-layer" id="0">
-            <p class="layer-name ">Layer 1</p>
-          </article>
-        </div>
-        <div id="layer-options">
-          <button id="new-layer-btn" class="btn layer-option-btn">
-            <i class="fa-solid fa-plus"></i>
-          </button>
-          <button id="delete-active-layer-btn" class="btn layer-option-btn">
-            <i class="fa-solid fa-minus"></i>
-          </button>
+          <p>nothing to show here :(</p>
         </div>
       </aside>
     </main>

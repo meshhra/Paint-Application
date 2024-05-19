@@ -1,5 +1,5 @@
 class DrawingCanvas {
-  constructor(width, height, className, id) {
+  constructor(parent, {width, height}, className, id) {
     this.canvas = document.createElement("canvas");
     this.width = width;
     this.height = height;
@@ -12,11 +12,10 @@ class DrawingCanvas {
 
     this.ctx = this.canvas.getContext("2d");
 
-    const wrapper = document.getElementById("canvas-wrapper");
-    wrapper.append(this.canvas);
+    parent.append(this.canvas);
     this.remove = () => {
-      wrapper.removeChild(this.canvas);
-    }
+      parent.removeChild(this.canvas);
+    };
   }
 }
 

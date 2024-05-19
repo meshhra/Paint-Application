@@ -7,3 +7,6 @@
 @import url("./src/css/menubarStyle.css");
 /* main element */
 @import url("./src/css/mainStyle.css");
+#layers-wrapper > p {
+  color: var(--background-600);
+}

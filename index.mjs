@@ -3,6 +3,11 @@ import { onMenuHoverEffect } from "./src/js/menuHover.mjs";
 import { init } from "./src/js/meunBtnClick.mjs";
 import { initNewFileModal } from "./src/js/newFileModal.mjs";
 import { docWidthInput, docHeightInput } from "./src/js/newFileModal.mjs";
+import { NEW_DOC_CREATED } from "./src/js/newFileModal.mjs";
+
+const wrapper = document.getElementById("canvas-wrapper");
+const ACTIVE_CANVAS_CHANGED_EVENT = "activeCanvasChanged";
+const activeCanvasChanged = new Event(ACTIVE_CANVAS_CHANGED_EVENT);
 
 onMenuHoverEffect();
 init();
@@ -12,34 +17,7 @@ let canvasArray = [];
 let baseCanvas = null;
 let docDimentions = {};
 let scale = 1;
-
-const ACTIVE_CANVAS_CHANGED_EVENT = "activeCanvasChanged";
-const activeCanvasChanged = new Event(ACTIVE_CANVAS_CHANGED_EVENT);
 let activeCanvas = null;
-
-//create the first canvas
-
-window.addEventListener("newDocCreated", (e) => {
-  resetAppState();
-
-  const wrapper = document.getElementById("canvas-wrapper");
-  wrapper.innerHTML = "";
-  docDimentions = {
-    width: Number.parseInt(docWidthInput.value),
-    height: Number.parseInt(docHeightInput.value),
-  };
-  baseCanvas = new DrawingCanvas(
-    docDimentions.width,
-    docDimentions.height,
-    "canvas",
-    canvasArray.length
-  );
-  canvasArray.push(baseCanvas);
-  scale = dertermineScale(docDimentions.width, docDimentions.height);
-  activeCanvas = canvasArray[0];
-  activeCanvas.canvas.style.scale = scale;
-  window.dispatchEvent(activeCanvasChanged);
-});
 
 const tools = {
   brush: "brush",
@@ -110,13 +88,36 @@ let isMouseDown = false;
 
 let tempLayer = null;
 
+window.addEventListener(NEW_DOC_CREATED, (e) => {
+  resetAppState();
+  docDimentions = {
+    width: Number.parseInt(docWidthInput.value),
+    height: Number.parseInt(docHeightInput.value),
+  };
+  baseCanvas = new DrawingCanvas(
+    wrapper,
+    docDimentions,
+    "canvas",
+    canvasArray.length
+  );
+  canvasArray.push(baseCanvas);
+  scale = dertermineScale(docDimentions.width, docDimentions.height);
+  activeCanvas = canvasArray[0];
+  activeCanvas.canvas.style.scale = scale;
+  window.dispatchEvent(activeCanvasChanged);
+  const layerWrapper = document.getElementById("layers-wrapper");
+  layerWrapper.innerHTML = `<article class="layer" id="0">
+      <p class="layer-name ">Layer 1</p>
+    </article>`;
+});
+
 window.addEventListener(ACTIVE_CANVAS_CHANGED_EVENT, (e) => {
   activeCanvas.canvas.style.scale = scale;
   activeCanvas.canvas.addEventListener("mousedown", (e) => {
     if (currentTool != tools.brush && !tempLayer) {
       tempLayer = new DrawingCanvas(
-        docDimentions.width,
-        docDimentions.height,
+        wrapper,
+        docDimentions,
         "temp",
         canvasArray.length
       );
@@ -207,7 +208,7 @@ function drawBrush(ctx) {
   ctx.lineTo(currentX, currentY);
   ctx.lineCap = "round";
   ctx.lineWidth = bruhSizeInput.value;
-  ctx.strokeStyle = colorInput.value;
+  ctx.strokeStyle = "rgba(0, 0, 0, 10)";
   ctx.stroke();
   ctx.beginPath();
   ctx.moveTo(currentX, currentY);
@@ -252,20 +253,19 @@ function drawCircle(ctx) {
 
 function dertermineScale(width, height) {
   if (width > height) {
-    return 0.78 * (1280 / Number.parseInt(docWidthInput.value));
+    return 0.75 * (1280 / Number.parseInt(docWidthInput.value));
   } else if (width == height) {
-    return 0.78 * (720 / Number.parseInt(docHeightInput.value));
+    return 0.75 * (720 / Number.parseInt(docHeightInput.value));
   } else {
-    return 0.78 * (720 / Number.parseInt(docHeightInput.value));
+    return 0.75 * (720 / Number.parseInt(docHeightInput.value));
   }
 }
 
 function resetAppState() {
   isDrawing = false;
   isMouseDown = false;
+  wrapper.innerHTML = "";
   canvasArray = [];
   activeCanvas = null;
   tempLayer = null;
 }
-
-
