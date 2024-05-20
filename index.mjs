@@ -211,7 +211,7 @@ function drawBrush(ctx) {
   ctx.lineTo(currentX, currentY);
   ctx.lineCap = "round";
   ctx.lineWidth = bruhSizeInput.value;
-  ctx.strokeStyle = "rgba(0, 0, 0, 10)";
+  ctx.strokeStyle = colorInput.value;
   ctx.stroke();
   ctx.beginPath();
   ctx.moveTo(currentX, currentY);
